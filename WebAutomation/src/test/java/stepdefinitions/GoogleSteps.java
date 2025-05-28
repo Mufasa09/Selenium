@@ -1,5 +1,8 @@
 package stepdefinitions;
 
+import java.util.Map;
+
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.*;
 import tests.GoogleTests;
 
@@ -22,7 +25,7 @@ public class GoogleSteps{
     }
 
     @Then("search results should be shown")
-    public void search_results_should_be_shown(String results) {
-    	googleTests.verifyResults(results);
+    public void search_results_should_be_shown(DataTable dataTable) {
+    	googleTests.verifyResults(dataTable);
     }
 }
