@@ -1,12 +1,9 @@
 package stepdefinitions;
-
-import java.util.Map;
-
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.*;
 import tests.GoogleTests;
 
-public class GoogleSteps{
+public class GoogleSteps extends BaseSteps{
 	
     GoogleTests googleTests;
     
@@ -14,12 +11,9 @@ public class GoogleSteps{
     	googleTests = new GoogleTests();
     }
 
-    @Given("I am on the Google homepage")
-    public void i_am_on_google_homepage() {
-    	googleTests.openGoogleHomePage();
-    }
 
-    @When("I search for {string}")
+
+    @Given("I search for {string}")
     public void i_search_for(String query) {
         googleTests.searchGoogle(query);
     }

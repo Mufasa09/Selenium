@@ -1,5 +1,7 @@
 package tests;
 
+import static org.testng.Assert.assertTrue;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -27,6 +29,10 @@ public class BaseTestClass{
         }
     }
     
+    public static String GrabText(By loc)
+    {
+        return driver.findElement(loc).getText();
+    }
     /*Resusable methods*/
     
     
@@ -45,4 +51,31 @@ public class BaseTestClass{
     	driver.findElement(loc).click();
     }
     
+    public static void VerifyTextData(By loc, String data, boolean boolData)
+    {
+        if(boolData)
+        	assertTrue(driver.findElement(loc).getText().contains(data));
+        else
+        	assertTrue(driver.findElement(loc).getText().contains(data));
+    }
+    
+    public static void VerifyDataIsPresent(By loc, boolean boolData)
+    {
+        if (boolData)
+        	assertTrue(driver.findElement(loc).isDisplayed());
+        else
+        	assertTrue(driver.findElement(loc).isDisplayed());
+    }
+    
+    public static void Wait(int number) throws InterruptedException
+    {
+        Thread.sleep(number);
+    }
+    
+    public void VerifyTitle(String title) throws InterruptedException
+    {
+    	Wait(3000);
+        driver.getTitle().contains(title);
+    	Wait(5000);
+    }
 }

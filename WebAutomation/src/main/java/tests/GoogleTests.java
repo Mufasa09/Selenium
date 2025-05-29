@@ -15,11 +15,6 @@ public class GoogleTests extends BaseTestClass{
 		google = new GoogleHomePage();
 	}
 	
-	public void openGoogleHomePage() {
-	NavigateToPage("https://www.google.com");
-	
-	}
-	
 	public void searchGoogle(String query) {
 		Enter(google.searchBox,query);
 		driver.findElement(google.searchBox).submit();
