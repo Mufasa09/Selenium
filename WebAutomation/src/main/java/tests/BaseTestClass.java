@@ -4,6 +4,7 @@ import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,19 +48,20 @@ public class BaseTestClass{
     /*Resusable methods*/
     
     
-    //Navigates to the page
     public static void NavigateToPage(String page) {
     	driver.get(page);
     }
     
-    //Enters the users info into the desired textbox
     public static void Enter(By loc, String info) {
     	driver.findElement(loc).sendKeys(info);
     }
     
-    //Clicks on the desired element
     public static void Click(By loc) {
     	driver.findElement(loc).click();
+    }
+    
+    public static void Click(WebElement element) {
+    	element.click();
     }
     
     public static void VerifyTextData(By loc, String data, boolean boolData)
@@ -107,6 +109,26 @@ public class BaseTestClass{
         WebElement element = wait.until(
             ExpectedConditions.visibilityOfElementLocated(loc));
     	return wait;
+    }
+    
+    public static List<WebElement> GrabAllElements(By loc){
+    	List<WebElement> allElements = driver.findElements(loc);
+    	return allElements;
+    }
+    
+    public static void ClickElementFromList(By loc, String name) {
+    	
+    	List<WebElement> allListElements = driver.findElements(loc);
+  	  // Print tag name and text content of each element
+        for (WebElement element : allListElements) {
+            System.out.println("Tag: " + element.getTagName() + ", Text: " + element.getText());
+        }
+    	for(WebElement element : allListElements) {
+    		if(element.getText().contains(name)) {
+    			Click(element);
+    			break;
+    		}
+    	}
     }
     
     

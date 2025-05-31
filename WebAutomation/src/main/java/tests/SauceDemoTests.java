@@ -55,6 +55,14 @@ public class SauceDemoTests extends BaseTestClass{
         Enter(SauceDemoLoginPage.PasswordTextBox, "secret_sauce");
         Click(SauceDemoLoginPage.LoginButton);
     }
+    
+    public void EnterUserCredSauceDemo(DataTable dataTable)
+    {
+    	Map<String, String> data = dataTable.asMap(String.class, String.class);
+        Enter(SauceDemoLoginPage.UserNameTextBox, data.get("Role"));
+        Enter(SauceDemoLoginPage.PasswordTextBox, "secret_sauce");
+        Click(SauceDemoLoginPage.LoginButton);
+    }
 
     public void VerifyProductPage()                
     {
@@ -66,14 +74,25 @@ public class SauceDemoTests extends BaseTestClass{
 
     public void VerifyICanLogout()
     {
+    	GrabAllElements(SauceDemoInventoryPage.AllProducts);
+    	ClickElementFromList(SauceDemoInventoryPage.ProductTitles,"Sauce Labs Backpack");
+    	
         Click(SauceDemoInventoryPage.MenuButton);
     	CustomElementWait(3, SauceDemoInventoryPage.LogoutLink);
         Click(SauceDemoInventoryPage.LogoutLink);
         VerifyDataIsPresent(SauceDemoLoginPage.LoginButton,true);
     }
+    
+    public void AddListItemToCart(String item)
+    {
+    	ClickElementFromList(SauceDemoInventoryPage.ProductTitles,item);
+        Click(SauceDemoInventoryPage.AddToCart);
+    }
 
     public void AddItemToCart(String item, String action)
     {
+    	if(action.contains("add"))
+    		action = "add-to-cart";
         switch (item)
         {
             case "Sauce Labs Backpack":
@@ -103,10 +122,12 @@ public class SauceDemoTests extends BaseTestClass{
     public void AddItemToCart(DataTable dataTable, String action)
     {
     	Map<String, String> data = dataTable.asMap(String.class, String.class);
-        switch (data.get("item"))
+    	if(action.contains("add"))
+    		action = "add-to-cart";
+        switch (data.get("ItemName").toString())
         {
             case "Sauce Labs Backpack":
-                Click(SauceDemoInventoryPage.SauceLabsBackpack("add"));
+                Click(SauceDemoInventoryPage.SauceLabsBackpack(action));
                 break;
             case "Sauce Labs Bike Light":
                 Click(SauceDemoInventoryPage.SauceLabsBikeLight(action));
@@ -130,6 +151,7 @@ public class SauceDemoTests extends BaseTestClass{
 
     public void VerifyItemsInCart(String data)
     {
+        Click(SauceDemoCartPage.ShoppingCartLink);
         VerifyTextData(SauceDemoInventoryPage.CartDescription,data, true);
     }
 

@@ -10,6 +10,4 @@ public class SauceDemoBasePage
         public By ResetAppState = By.id("reset_sidebar_link");
         public By LogoutLink = By.id("logout_sidebar_link");
         public By ShoppingCart = By.xpath("//a[contains(@class,'shopping_cart_link')]");
-
-
     }

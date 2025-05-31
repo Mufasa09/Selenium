@@ -33,6 +33,11 @@ public class SauceDemoSteps {
 		SauceDemoTests.EnterUserCredSauceDemo(role);
 	}
 
+	@When("I enter user credentials on SauceDemo site")
+	public void EnterUserCredentialsByString(DataTable dataTable) {
+		SauceDemoTests.EnterUserCredSauceDemo(dataTable);
+	}
+
 	@Then("I verify user is on the main page")
 	public void ThenIVerifyUserIsOnTheMainPage() {
 		SauceDemoTests.VerifyProductPage();
@@ -43,14 +48,19 @@ public class SauceDemoSteps {
 		SauceDemoTests.VerifyICanLogout();
 	}
 
-	@Then("I (.*) the item (.*) to the cart")
+	@Then("I {string} the item {string} to the cart")
 	public void ThenIAddAnItemToTheCart(String action, String item) {
 		SauceDemoTests.AddItemToCart(item, action);
 	}
 
-	@Then("I (.*) the item to the cart")
+	@Then("I {string} the item to the cart")
 	public void _ThenIAddAnItemToTheCart(String action, DataTable dataTable) {
 		SauceDemoTests.AddItemToCart(dataTable, action);
+	}
+	
+	@Then("I add the item {string} from the list of products to the cart")
+	public void _ThenIAddAnItemToTheCart(String product) {
+		SauceDemoTests.AddListItemToCart(product);
 	}
 
 	@Then("I verify it was added to the cart")
@@ -66,6 +76,12 @@ public class SauceDemoSteps {
 	@Then("I verify items in cart before removing")
 	public void ThenIVerifyItemsInCartBeforeRemoving(DataTable dataTable) {
 		SauceDemoTests.VerifyItemsInCart(dataTable);
+		SauceDemoTests.ClearCart();
+	}
+	
+	@Then("I verify item {string} in cart before removing")
+	public void ThenIVerifyItemsInCartBeforeRemoving(String item) {
+		SauceDemoTests.VerifyItemsInCart(item);
 		SauceDemoTests.ClearCart();
 	}
 }
