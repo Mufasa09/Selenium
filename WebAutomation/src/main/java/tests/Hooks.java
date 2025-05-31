@@ -24,8 +24,6 @@ public class Hooks extends BaseTestClass {
 		String directoryName = System.getProperty("user.dir");
 		FileInputStream fis = new FileInputStream(directoryName + "/testsettings.properties");
 		config.load(fis);
-		String headless = config.getProperty("Headless");
-		String incognito = config.getProperty("Incognito");
 		initializeDriver(Options(config));
 		System.out.println("Driver initialized in @Before: " + driver);
 	}
