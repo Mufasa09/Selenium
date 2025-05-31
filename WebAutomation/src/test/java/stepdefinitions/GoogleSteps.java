@@ -3,7 +3,7 @@ import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.*;
 import tests.GoogleTests;
 
-public class GoogleSteps extends BaseSteps{
+public class GoogleSteps{
 	
     GoogleTests googleTests;
     

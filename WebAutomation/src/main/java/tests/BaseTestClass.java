@@ -1,11 +1,19 @@
 package tests;
 
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
+
+import java.time.Duration;
+import java.util.List;
+import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -16,10 +24,13 @@ public class BaseTestClass{
 	
 	
 	/*Base functions*/
-    public static void initializeDriver() {
+    public static void initializeDriver(Map<String, String> map) {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--incognito");
+        if(map.get("incognito").contains("true"))
+            options.addArguments("--incognito");
+        if(map.get("headless").contains("true"))
+            options.addArguments("--headless");
         driver = new ChromeDriver(options);
     }
 
@@ -67,15 +78,37 @@ public class BaseTestClass{
         	assertTrue(driver.findElement(loc).isDisplayed());
     }
     
-    public static void Wait(int number) throws InterruptedException
+    public void VerifyDataIsEnabled(By loc, boolean boolData)
     {
-        Thread.sleep(number);
+        if (boolData)
+        	assertTrue(driver.findElement(loc).isEnabled());
+        else
+        	assertFalse(driver.findElement(loc).isEnabled());
     }
+    
+  
     
     public void VerifyTitle(String title) throws InterruptedException
     {
-    	Wait(3000);
+    	CustomWait(3);
         driver.getTitle().contains(title);
-    	Wait(5000);
     }
+    
+    public static WebDriverWait CustomWait(int time) {
+    	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(time));
+		return wait;
+    }
+    
+    public static WebDriverWait CustomElementWait(int time, By loc) {
+    	
+    	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(time));
+
+    	// Wait until the element is present and visible
+        WebElement element = wait.until(
+            ExpectedConditions.visibilityOfElementLocated(loc));
+    	return wait;
+    }
+    
+    
+    
 }

@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.util.Properties;
 
 import com.github.dockerjava.api.exception.NotFoundException;
+import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -20,8 +24,21 @@ public class Hooks extends BaseTestClass {
 		String directoryName = System.getProperty("user.dir");
 		FileInputStream fis = new FileInputStream(directoryName + "/testsettings.properties");
 		config.load(fis);
-		initializeDriver();
+		String headless = config.getProperty("Headless");
+		String incognito = config.getProperty("Incognito");
+		initializeDriver(Options(config));
 		System.out.println("Driver initialized in @Before: " + driver);
+	}
+	
+	public Map<String, String> Options(Properties config) {
+		
+		Map<String, String> ChromeOptions = new HashMap<String, String>();
+		String headless = config.getProperty("Headless");
+		String incognito = config.getProperty("Incognito");
+		ChromeOptions.put("headless", headless);
+		ChromeOptions.put("incognito", incognito);
+		
+		return ChromeOptions;
 	}
 
 	@Before

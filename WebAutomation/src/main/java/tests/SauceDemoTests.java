@@ -28,14 +28,25 @@ public class SauceDemoTests extends BaseTestClass{
 	
 	
 	/*Methods*/
-   
-
-    public void EnterUserCredSauceDemo(DataTable dataTable)
+    public void VerifyLoginPageElements()
+    {
+        VerifyDataIsPresent(SauceDemoLoginPage.UserNameTextBox, true);
+        VerifyDataIsPresent(SauceDemoLoginPage.PasswordTextBox, true);
+        VerifyDataIsPresent(SauceDemoLoginPage.LoginButton, true);
+        VerifyDataIsEnabled(SauceDemoLoginPage.LoginButton, true);
+        VerifyDataIsPresent(SauceDemoLoginPage.LoginUserCredentialsText, true);
+        VerifyDataIsPresent(SauceDemoLoginPage.LoginPasswordCredentialsText, true);
+    }
+    
+    public void VerifyLoginError(DataTable dataTable)
     {
     	Map<String, String> data = dataTable.asMap(String.class, String.class);
-        Enter(SauceDemoLoginPage.UserNameTextBox, data.get("role"));
-        Enter(SauceDemoLoginPage.PasswordTextBox, "secret_sauce");
-        Click(SauceDemoLoginPage.LoginButton);
+        //CustomWait(3);
+        if (driver.findElements(SauceDemoLoginPage.LoginErrorContainer).size() > 0)
+            if (data.get("Role") != null)
+                VerifyTextData(SauceDemoLoginPage.LoginErrorContainer, "Epic sadface: Sorry, this user has been locked out.", true);
+            else
+                VerifyTextData(SauceDemoLoginPage.LoginErrorContainer, "Epic sadface: Username is required", true);
     }
 
     public void EnterUserCredSauceDemo(String role)
@@ -56,6 +67,7 @@ public class SauceDemoTests extends BaseTestClass{
     public void VerifyICanLogout()
     {
         Click(SauceDemoInventoryPage.MenuButton);
+    	CustomElementWait(3, SauceDemoInventoryPage.LogoutLink);
         Click(SauceDemoInventoryPage.LogoutLink);
         VerifyDataIsPresent(SauceDemoLoginPage.LoginButton,true);
     }

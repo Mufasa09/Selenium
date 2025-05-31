@@ -12,9 +12,9 @@ public class BaseSteps{
 
 
     @When("I verify the title of the site is {string}")
-    public void VerifySiteTitle(String title) throws InterruptedException {
+    public void i_verify_the_title_of_the_site(String title) throws InterruptedException {
     	Tests.VerifyTitle(title);  
     	}
-
+   
 
 }
