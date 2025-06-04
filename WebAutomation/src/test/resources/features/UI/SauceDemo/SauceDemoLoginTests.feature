@@ -2,15 +2,17 @@ Feature: SauceDemo Login Tests
   
   Basic scenarios of the Sauce Demo login
 
+
+  Scenario: I verify all elements are displayed on login page
+  	When I verify the title of the site is "Swag Labs"
+  	Then I verify login page elements
+
   Scenario: Verify you can log in the site
   	Given I verify the title of the site is "Swag Labs"
   	When I enter "locked_out_user" user credentials on SauceDemo site
   	Then I verify login error
   		| Key  | Value      |
   		| Role | locked_out |
-  Scenario: I verify all elements are displayed on login page
-  	When I verify the title of the site is "Swag Labs"
-  	Then I verify login page elements
   
   Scenario: I verify negative login scenario
   	Given I verify the title of the site is "Swag Labs"

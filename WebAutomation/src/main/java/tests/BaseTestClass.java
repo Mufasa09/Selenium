@@ -4,67 +4,48 @@ import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import java.time.Duration;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import Utilities.DriverFactory;
+
 
 public class BaseTestClass{
 	/*Variables*/
 	
-	protected static WebDriver driver;
 	
-	
-	/*Base functions*/
-    public static void initializeDriver(Map<String, String> map) {
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        if(map.get("incognito").contains("true"))
-            options.addArguments("--incognito");
-        if(map.get("headless").contains("true"))
-            options.addArguments("--headless");
-        driver = new ChromeDriver(options);
-    }
+	protected WebDriver driver = DriverFactory.getDriver();	
 
-    public static void quitDriver() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
-    
-    public static String GrabText(By loc)
+
+	public String GrabText(By loc)
     {
         return driver.findElement(loc).getText();
     }
     /*Resusable methods*/
     
     
-    public static void NavigateToPage(String page) {
+    public  void NavigateToPage(String page) {
     	driver.get(page);
     }
     
-    public static void Enter(By loc, String info) {
+    public  void Enter(By loc, String info) {
     	driver.findElement(loc).sendKeys(info);
     }
     
-    public static void Click(By loc) {
+    public  void Click(By loc) {
     	driver.findElement(loc).click();
     }
     
-    public static void Click(WebElement element) {
+    public  void Click(WebElement element) {
     	element.click();
     }
     
-    public static void VerifyTextData(By loc, String data, boolean boolData)
+    public  void VerifyTextData(By loc, String data, boolean boolData)
     {
         if(boolData)
         	assertTrue(driver.findElement(loc).getText().contains(data));
@@ -72,7 +53,7 @@ public class BaseTestClass{
         	assertTrue(driver.findElement(loc).getText().contains(data));
     }
     
-    public static void VerifyDataIsPresent(By loc, boolean boolData)
+    public  void VerifyDataIsPresent(By loc, boolean boolData)
     {
         if (boolData)
         	assertTrue(driver.findElement(loc).isDisplayed());
@@ -96,12 +77,12 @@ public class BaseTestClass{
         driver.getTitle().contains(title);
     }
     
-    public static WebDriverWait CustomWait(int time) {
+    public  WebDriverWait CustomWait(int time) {
     	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(time));
 		return wait;
     }
     
-    public static WebDriverWait CustomElementWait(int time, By loc) {
+    public  WebDriverWait CustomElementWait(int time, By loc) {
     	
     	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(time));
 
@@ -111,12 +92,12 @@ public class BaseTestClass{
     	return wait;
     }
     
-    public static List<WebElement> GrabAllElements(By loc){
+    public  List<WebElement> GrabAllElements(By loc){
     	List<WebElement> allElements = driver.findElements(loc);
     	return allElements;
     }
     
-    public static void ClickElementFromList(By loc, String name) {
+    public  void ClickElementFromList(By loc, String name) {
     	
     	List<WebElement> allListElements = driver.findElements(loc);
   	  // Print tag name and text content of each element

@@ -155,8 +155,16 @@
             <artifactId>maven-surefire-plugin</artifactId>
 
             <version>3.2.5</version>
-
+			<configuration>
+			<parallel>tests</parallel>
+<threadCount>2</threadCount>
+    <includes>
+      <include>**/TestNGCucumberRunner.java</include>
+    </includes>
+  </configuration>
         </plugin>
+        
+        
 
     </plugins>
 
