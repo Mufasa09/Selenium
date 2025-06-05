@@ -5,6 +5,7 @@ import static org.testng.Assert.assertTrue;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -13,13 +14,19 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import Utilities.DriverFactory;
+import io.cucumber.datatable.DataTable;
 
 
 public class BaseTestClass{
 	/*Variables*/
 	
 	
-	protected WebDriver driver = DriverFactory.getDriver();	
+	protected WebDriver driver;
+
+
+	public BaseTestClass() {
+		driver = DriverFactory.getDriver();	
+	}
 
 
 	public String GrabText(By loc)
@@ -112,6 +119,11 @@ public class BaseTestClass{
     	}
     }
     
+    
+    public List<Map<String, String>> itemList(DataTable dataTable){
+    	List<Map<String, String>> rows = dataTable.asMaps();
+    	return rows;
+    }
     
     
 }

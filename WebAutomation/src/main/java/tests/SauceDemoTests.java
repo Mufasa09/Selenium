@@ -1,5 +1,7 @@
 package tests;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.openqa.selenium.NoSuchElementException;
@@ -148,6 +150,68 @@ public class SauceDemoTests extends BaseTestClass{
             	throw new NoSuchElementException("Not Found");
         }
     }
+    
+    public void AddListItemToCart(DataTable dataTable, String action)
+    {
+    	   for (Map<String, String> row : itemList(dataTable)) {
+    	        if(action.contains("add"))
+    	    		action = "add-to-cart";
+    	        switch (row.get("Value").toString())
+    	        {
+    	            case "Sauce Labs Backpack":
+    	                Click(SauceDemoInventoryPage.SauceLabsBackpack(action));
+    	                break;
+    	            case "Sauce Labs Bike Light":
+    	                Click(SauceDemoInventoryPage.SauceLabsBikeLight(action));
+    	                break;
+    	            case "Sauce Labs Bolt T-Shirt":
+    	                Click(SauceDemoInventoryPage.SauceLabsBoltTshirt(action));
+    	                break;
+    	            case "Sauce Labs Fleece Jacket":
+    	                Click(SauceDemoInventoryPage.SauceLabsFleeceJacket(action));
+    	                break;
+    	            case "Sauce Labs Onesie":
+    	                Click(SauceDemoInventoryPage.SauceLabsOnsie(action));
+    	                break;
+    	            case "Test.allTheThings() T-Shirt (Red)":
+    	                Click(SauceDemoInventoryPage.SauceLabsTshirtRed(action));
+    	                break;
+    	            default:
+    	            	throw new NoSuchElementException("Not Found");
+    	        }
+    	    }
+    	
+    } 
+    
+    public void AddListItemsToCart(DataTable dataTable, String action)
+    {
+    	Map<String, String> data = dataTable.asMap(String.class, String.class);
+    	if(action.contains("add"))
+    		action = "add-to-cart";
+        switch (data.get("ItemName").toString())
+        {
+            case "Sauce Labs Backpack":
+                Click(SauceDemoInventoryPage.SauceLabsBackpack(action));
+                break;
+            case "Sauce Labs Bike Light":
+                Click(SauceDemoInventoryPage.SauceLabsBikeLight(action));
+                break;
+            case "Sauce Labs Bolt T-Shirt":
+                Click(SauceDemoInventoryPage.SauceLabsBoltTshirt(action));
+                break;
+            case "Sauce Labs Fleece Jacket":
+                Click(SauceDemoInventoryPage.SauceLabsFleeceJacket(action));
+                break;
+            case "Sauce Labs Onesie":
+                Click(SauceDemoInventoryPage.SauceLabsOnsie(action));
+                break;
+            case "Test.allTheThings() T-Shirt (Red)":
+                Click(SauceDemoInventoryPage.SauceLabsTshirtRed(action));
+                break;
+            default:
+            	throw new NoSuchElementException("Not Found");
+        }
+    }
 
     public void VerifyItemsInCart(String data)
     {
@@ -157,9 +221,13 @@ public class SauceDemoTests extends BaseTestClass{
 
     public void VerifyItemsInCart(DataTable dataTable)
     {
-    	Map<String, String> data = dataTable.asMap(String.class, String.class);
         Click(SauceDemoCartPage.ShoppingCartLink);
-        VerifyTextData(SauceDemoInventoryPage.CartDescription, data.get("ItemName"), true);
+ 	   for (Map<String, String> row : itemList(dataTable)) {
+ 	        VerifyTextData(SauceDemoInventoryPage.CartDescription, row.get("Value"), true);
+ 	   }
+ 	  
+ 	   
+        
     }
 
     public void ClearCart()

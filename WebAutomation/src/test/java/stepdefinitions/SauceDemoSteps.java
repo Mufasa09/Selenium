@@ -58,6 +58,11 @@ public class SauceDemoSteps {
 		SauceDemoTests.AddItemToCart(dataTable, action);
 	}
 	
+	@Then("I {string} the list of items to the cart")
+	public void _ThenIAddListItemsToTheCart(String action, DataTable dataTable) {
+		SauceDemoTests.AddListItemToCart(dataTable, action);
+	}
+	
 	@Then("I add the item {string} from the list of products to the cart")
 	public void _ThenIAddAnItemToTheCart(String product) {
 		SauceDemoTests.AddListItemToCart(product);
@@ -82,6 +87,12 @@ public class SauceDemoSteps {
 	@Then("I verify item {string} in cart before removing")
 	public void ThenIVerifyItemsInCartBeforeRemoving(String item) {
 		SauceDemoTests.VerifyItemsInCart(item);
+		SauceDemoTests.ClearCart();
+	}
+	
+	@Then("I verify the list of items in cart before removing")
+	public void ThenIVerifyListItemsInCartBeforeRemoving(DataTable dataTable) {
+		SauceDemoTests.VerifyItemsInCart(dataTable);
 		SauceDemoTests.ClearCart();
 	}
 }

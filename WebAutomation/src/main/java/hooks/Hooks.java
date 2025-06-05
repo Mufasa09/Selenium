@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterSuite;
 
 import com.github.dockerjava.api.exception.NotFoundException;
 
@@ -46,8 +47,9 @@ public class Hooks {
 		System.out.println("Driver quit in @After: " + driver);
 		DriverFactory.removeDriver();
 		driver = null;
-
 	}
+	
+
 
 	public String WebsiteSelector(String featureName) {
 		String returnString = "";

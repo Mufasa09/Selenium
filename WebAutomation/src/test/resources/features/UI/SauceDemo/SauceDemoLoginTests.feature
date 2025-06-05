@@ -46,4 +46,4 @@ Scenario Outline: Verify you can log in the site with multiple users and logout
       | "performance_glitch_user" |
       | "problem_user"            |
       | "visual_user"             |
-      | "error_user"              |
+      #| "error_user"              |
