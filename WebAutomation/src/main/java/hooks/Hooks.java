@@ -67,7 +67,10 @@ public class Hooks {
 			} else if (featureName.contains("Google")) {
 				returnString = "Google";
 				return returnString;
-			} else {
+			}  else if (featureName.contains("Schwab")) {
+				returnString = "Schwab";
+				return returnString;
+			}else {
 				throw new NotFoundException("Website Not Found");
 			}
 		}

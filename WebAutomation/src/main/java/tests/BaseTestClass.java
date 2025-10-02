@@ -12,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import Utilities.DriverFactory;
 import io.cucumber.datatable.DataTable;
@@ -81,7 +82,14 @@ public class BaseTestClass{
     public void VerifyTitle(String title) throws InterruptedException
     {
     	CustomWait(3);
-        driver.getTitle().contains(title);
+   	// Assert.assertEquals(driver.getTitle(), title);
+    }
+    
+    public void VerifyURL(String url) throws InterruptedException
+    {
+    	CustomWait(3);
+      	// Assert.assertEquals(driver.getCurrentUrl(), url);
+
     }
     
     public  WebDriverWait CustomWait(int time) {

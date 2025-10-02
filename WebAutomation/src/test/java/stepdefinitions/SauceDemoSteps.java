@@ -4,18 +4,15 @@ import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import tests.BaseTestClass;
 import tests.SauceDemoTests;
 
 public class SauceDemoSteps {
 
 	public SauceDemoSteps() {
 		SauceDemoTests = new SauceDemoTests();
-		Tests = new BaseTestClass();
 	}
 
 	SauceDemoTests SauceDemoTests;
-	BaseTestClass Tests;
 
 	@Then("I verify login page elements")
 	public void ThenIVerifyLoginPageElements() {
